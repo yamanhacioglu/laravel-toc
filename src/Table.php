@@ -15,18 +15,18 @@ use YamanHacioglu\LaravelToc\HtmlHelper;
 class Table {
     use HtmlHelper;
 
-    private $domParser;
+    private HTML5 $domParser;
 
-    private $menuFactory;
+    private MenuFactory $menuFactory;
 
 
-    public function __construct(MenuFactory $menuFactory = null, HTML5 $htmlParser = null)
+    public function __construct(?MenuFactory $menuFactory = null, ?HTML5 $htmlParser = null): void
     {
         $this->domParser   = $htmlParser  ?: new HTML5();
         $this->menuFactory = $menuFactory ?: new MenuFactory();
     }
 
-    public function getMenu($markup, $topLevel = 1, $depth = 6)
+    public function getMenu(string $markup, int $topLevel = 1, int $depth = 6): ItemInterface
     {
         $menu = $this->menuFactory->createItem('TOC');
 
@@ -73,7 +73,7 @@ class Table {
         return $menu;
     }
 
-    public function getTableContent($markup, $topLevel = 1, $depth = 6, RendererInterface $renderer = null)
+    public function getTableContent(string $markup, int $topLevel = 1, int $depth = 6, ?RendererInterface $renderer = null): string
     {
         if(!$renderer) {
             $renderer = new ListRenderer(new Matcher(), [

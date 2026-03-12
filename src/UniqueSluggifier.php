@@ -6,16 +6,16 @@ use Cocur\Slugify\Slugify;
 
 class UniqueSluggifier
 {
-    private $slugify;
-    private $used;
+    private Slugify $slugify;
+    private array $used;
 
-    public function __construct(Slugify $slugify = null)
+    public function __construct(?Slugify $slugify = null): void
     {
         $this->used = array();
         $this->slugify = $slugify ?: new Slugify();
     }
 
-    public function slugify($text)
+    public function slugify(string $text): string
     {
         $slugged = $this->slugify->slugify($text);
 

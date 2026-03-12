@@ -15,7 +15,7 @@ trait HtmlHelper
      * @return string[]
      */
 
-  protected function determineHeaderTags($topLevel, $depth)
+  protected function determineHeaderTags($topLevel, $depth): array
   {
       $desired = range((int) $topLevel, (int) $topLevel + ((int) $depth -1));
       $allowed = [1, 2, 3, 4, 5, 6];
@@ -33,7 +33,7 @@ trait HtmlHelper
      * @return ArrayIterator|DomElement[]
      */
 
-  protected function traverseHeaderTags($domDocument, $topLevel, $depth)
+  protected function traverseHeaderTags($domDocument, $topLevel, $depth): ArrayIterator
   {
       $xpath = new DOMXPath($domDocument);
 
@@ -52,7 +52,7 @@ trait HtmlHelper
       return new ArrayIterator($nodes);
   }
 
-  protected function isFullHtmlDocument($markup)
+  protected function isFullHtmlDocument($markup): bool
   {
       return (strpos($markup, "<body")!== false && strpos($markup, "</body>")!== false);
   }

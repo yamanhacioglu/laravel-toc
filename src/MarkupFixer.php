@@ -13,14 +13,14 @@ class MarkupFixer
      * @var
      */
 
-    private $htmlParser;
+    private HTML5 $htmlParser;
 
-    public function __construct(HTML5 $htmlParser = null)
+    public function __construct(?HTML5 $htmlParser = null): void
     {
         $this->htmlParser = $htmlParser ?: new HTML5();
     }
 
-    public function fix($markup, $topLevel = 1, $depth = 6)
+    public function fix(string $markup, int $topLevel = 1, int $depth = 6): string
     {
         if (!$this->isFullHtmlDocument($markup)) {
             $partialID = uniqid('toc_generator_');
@@ -36,7 +36,7 @@ class MarkupFixer
             if ($node->getAttribute('id')) {
                 continue;
             }
-            $node->setAttribute('id', $sluggifier->slugify($node->getattribute('title') ?: $node->textContent));
+            $node->setAttribute('id', $sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
         }
 
         return $this->htmlParser->saveHTML(
